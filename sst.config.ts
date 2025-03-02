@@ -1,6 +1,6 @@
 /* eslint-disable */
 /// <reference path="./.sst/platform/config.d.ts" />
-import { execSync } from 'child_process';
+require('dotenv').config('.env.production');
 
 export default $config({
 	app(input) {
@@ -9,13 +9,15 @@ export default $config({
 			removal: input?.stage === 'production' ? 'retain' : 'remove',
 			home: 'aws',
 			region: process.env.AWS_REGION || 'us-east-1',
-			profile: input.stage === 'production' ? 'looped-prod' : 'looped-dev'
+			providers: {
+				aws: {
+					profile: input.stage === 'production' ? 'looped-prod' : 'looped-dev'
+				}
+			}
 		};
 	},
 	async run() {
-		const zeroVersion = execSync('npm list @rocicorp/zero | grep @rocicorp/zero | cut -f 3 -d @')
-			.toString()
-			.trim();
+		const zeroVersion = '0.16.2025022602';
 
 		// S3 Bucket
 		const replicationBucket = new sst.aws.Bucket(`replication-bucket`);
@@ -31,15 +33,12 @@ export default $config({
 			vpc
 		});
 
-		const conn = new sst.Secret('PostgresConnectionString');
-		const zeroAuthJwksUrl = new sst.Secret('zeroAuthJwksUrl');
-
 		// Common environment variables
 		const commonEnv = {
-			ZERO_UPSTREAM_DB: conn.value,
-			ZERO_CVR_DB: conn.value,
-			ZERO_CHANGE_DB: conn.value,
-			ZERO_AUTH_JWKS_URL: zeroAuthJwksUrl.value,
+			ZERO_UPSTREAM_DB: process.env.ZERO_UPSTREAM_DB!,
+			ZERO_CVR_DB: process.env.ZERO_CVR_DB!,
+			ZERO_CHANGE_DB: process.env.ZERO_CHANGE_DB!,
+			ZERO_AUTH_JWKS_URL: process.env.ZERO_AUTH_JWKS_URL!,
 			ZERO_REPLICA_FILE: 'zchat-replica.db',
 			ZERO_LITESTREAM_BACKUP_URL: $interpolate`s3://${replicationBucket.name}/backup`,
 			ZERO_IMAGE_URL: `rocicorp/zero:${zeroVersion}`,
@@ -48,7 +47,8 @@ export default $config({
 		};
 
 		// Replication Manager Service
-		const replicationManager = cluster.addService(`replication-manager`, {
+		const replicationManager = new sst.aws.Service(`replication-manager`, {
+			cluster,
 			cpu: '2 vCPU',
 			memory: '8 GB',
 			image: commonEnv.ZERO_IMAGE_URL,
@@ -91,7 +91,8 @@ export default $config({
 		});
 
 		// View Syncer Service
-		const viewSyncer = cluster.addService(`view-syncer`, {
+		const viewSyncer = new sst.aws.Service(`view-syncer`, {
+			cluster,
 			cpu: '2 vCPU',
 			memory: '8 GB',
 			image: commonEnv.ZERO_IMAGE_URL,
@@ -132,24 +133,5 @@ export default $config({
 				}
 			}
 		});
-
-		// Permissions deployment
-		const permissionsDeployer = new sst.aws.Function('zero-permissions-deployer', {
-			handler: './functions/src/permissions.deploy',
-			vpc,
-			environment: { ['ZERO_UPSTREAM_DB']: conn.value },
-			copyFiles: [{ from: './src/zSchema.ts', to: './schema.ts' }],
-			nodejs: { install: [`@rocicorp/zero`] }
-		});
-
-		new aws.lambda.Invocation(
-			'invoke-zero-permissions-deployer',
-			{
-				// Invoke the Lambda on every deploy.
-				input: Date.now().toString(),
-				functionName: permissionsDeployer.name
-			},
-			{ dependsOn: viewSyncer }
-		);
 	}
 });
