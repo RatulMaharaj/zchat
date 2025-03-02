@@ -1,6 +1,6 @@
 # zchat
 
-An AI chat app build to demonstrate the capabilities of zero sync.
+An AI chat app built to demonstrate the capabilities of zero sync.
 
 See https://x.com/aboodman/status/1894771044504006912 
 
