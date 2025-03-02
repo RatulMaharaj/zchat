@@ -1,23 +1,23 @@
 <script lang="ts">
 	import { z } from '$lib/z.svelte';
-	import { Query } from 'zero-svelte';
 	import Prompt from './prompt.svelte';
 	import SvelteMarkdown from 'svelte-markdown';
+	import { Query } from 'zero-svelte';
 
-	const {
+	let {
 		chatId
 	}: {
 		chatId: string;
 	} = $props();
 
-	const chat = new Query(z.current.query.chats.one().where('id', chatId));
-	console.log(chat);
+	let chats = new Query(z.current.query.chats);
+	let selectedChat = $derived(chats.current.find((chat) => chat.id === chatId));
 </script>
 
-<div class="h-full flex-grow overflow-y-scroll px-10">
-	{#if chat.current?.messages}
+<div id="chat" class="h-full flex-grow overflow-y-scroll px-10">
+	{#if selectedChat?.messages && selectedChat?.messages.length > 0}
 		<ul>
-			{#each chat.current?.messages as message, index (index)}
+			{#each selectedChat?.messages as message, index (index)}
 				{#if message.role === 'user'}
 					<li class="chat chat-end">
 						<div class="chat-bubble chat-bubble-neutral">{message.content}</div>
@@ -33,4 +33,4 @@
 		</ul>
 	{/if}
 </div>
-<Prompt {chatId} />
+<Prompt {chatId} messages={selectedChat?.messages ?? []} />

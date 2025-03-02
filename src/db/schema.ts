@@ -1,6 +1,6 @@
 import { relations, sql } from 'drizzle-orm';
 import { pgTable, text, jsonb, timestamp, boolean } from 'drizzle-orm/pg-core';
-import { type UIMessages } from 'ai';
+import { type UIMessage } from 'ai';
 
 const timestamps = {
 	createdAt: timestamp('created_at', {
@@ -32,7 +32,7 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const chats = pgTable('chats', {
 	id: text('id').primaryKey(),
 	title: text('title').notNull().default('New Chat'),
-	messages: jsonb('messages').$type<UIMessages[]>().notNull(),
+	messages: jsonb('messages').$type<UIMessage[]>().notNull(),
 	userId: text('author_id')
 		.references(() => users.id)
 		.notNull(),

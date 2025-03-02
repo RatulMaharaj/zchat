@@ -1,11 +1,36 @@
 <script lang="ts">
+	import type { UIMessage } from 'ai';
 	// using the old syntax as @ai-sdk/svelte is not yet updated to support runes mode
 	export let chatId: string;
-	import { useChat } from '@ai-sdk/svelte';
+	export let messages: UIMessage[];
+
 	import Icon from './icon.svelte';
-	const { input, handleSubmit } = useChat({
-		api: `/api/chat/${chatId}`
-	});
+
+	let input = '';
+
+	async function handleSubmit(e: Event) {
+		e.preventDefault();
+		if (!input) return;
+
+		await fetch(`/api/chat/${chatId}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				chatId,
+				messages: [
+					...messages,
+					{
+						role: 'user',
+						content: input
+					}
+				]
+			})
+		});
+
+		input = '';
+	}
 </script>
 
 <form
@@ -20,10 +45,10 @@
 		<input
 			type="text"
 			class="bg-base-100 h-full w-full border-none px-2 py-1 outline-none focus:border-none focus:outline-none"
-			bind:value={$input}
+			bind:value={input}
 			placeholder="Message zchat"
 		/>
-		<button class="btn btn-secondary btn-circle my-auto mr-4 h-8 w-8" type="submit">
+		<button type="submit" class="btn btn-secondary btn-circle my-auto mr-4 h-8 w-8">
 			<Icon name="send" size="size-4" />
 		</button>
 	</div>

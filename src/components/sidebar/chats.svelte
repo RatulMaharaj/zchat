@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Query } from 'zero-svelte';
 	import { z } from '$lib/z.svelte';
-	const { userId }: { userId: string } = $props();
+	let { userId }: { userId: string } = $props();
 
-	const chats = new Query(z.current.query.chats.where('userId', userId));
+	let chats = new Query(z.current.query.chats.where('userId', userId));
 </script>
 
 {#if chats.current.length > 0}
