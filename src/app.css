@@ -1,0 +1,56 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+	name: 'zero';
+	default: true; /* set as default */
+	prefersdark: true; /* set as default dark mode (prefers-color-scheme:dark) */
+	color-scheme: dark; /* color of browser-provided UI */
+
+	--color-base-100: oklch(0% 0 0);
+	--color-base-200: oklch(0% 0 0);
+	--color-base-300: oklch(15.5% 0 0);
+	--color-base-content: oklch(100% 0 0 / 85%);
+	--color-primary: oklch(65.1% 0.251 360);
+	--color-primary-content: oklch(98% 0.01 240);
+	--color-secondary: oklch(98% 0.01 200);
+	--color-secondary-content: oklch(15.5% 0 0);
+	--color-accent: oklch(65.1% 0.251 360);
+	--color-accent-content: oklch(98% 0.01 160);
+	--color-neutral: oklch(18.7% 0 0);
+	--color-neutral-content: oklch(98% 0.01 240);
+	--color-info: oklch(70% 0.2 220);
+	--color-info-content: oklch(98% 0.01 220);
+	--color-success: oklch(65% 0.25 140);
+	--color-success-content: oklch(98% 0.01 140);
+	--color-warning: oklch(80% 0.25 80);
+	--color-warning-content: oklch(20% 0.05 80);
+	--color-error: oklch(65% 0.3 30);
+	--color-error-content: oklch(98% 0.01 30);
+
+	/* border radius */
+	--radius-selector: 1rem;
+	--radius-field: 0.25rem;
+	--radius-box: 0.5rem;
+
+	/* base sizes */
+	--size-selector: 0.25rem;
+	--size-field: 0.25rem;
+
+	/* border size */
+	--border: 1px;
+
+	/* effects */
+	--depth: 1;
+	--noise: 0;
+}
+
+.highlight {
+	@apply border-2 border-red-600;
+}
+
+@theme {
+	--font-sans:
+		system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif;
+}

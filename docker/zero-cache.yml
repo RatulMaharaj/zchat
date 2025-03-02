@@ -1,0 +1,14 @@
+services:
+  zero_cache:
+    image: rocicorp/zero:latest
+    environment:
+      - ZERO_UPSTREAM_DB=${ZERO_UPSTREAM_DB}
+      - ZERO_CVR_DB=${ZERO_CVR_DB}
+      - ZERO_CHANGE_DB=${ZERO_CHANGE_DB}
+      - ZERO_REPLICA_FILE=/zero_data/zchat_replica.db
+      - ZERO_PORT=4848
+    volumes:
+      - replica:/zero_data
+
+volumes:
+  replica:

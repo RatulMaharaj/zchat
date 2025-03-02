@@ -1,0 +1,25 @@
+<script lang="ts">
+	import { isAuthenticated, user } from '$lib/store.svelte';
+	import Profile from '../profile.svelte';
+	import ChatHistory from './chats.svelte';
+	import NewChat from './new.svelte';
+</script>
+
+<nav class="drawer-side">
+	<label for="app-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+	<ul class="menu bg-base-100 text-base-content relative z-10 min-h-full w-60 p-4">
+		<a href="/" class="mb-4 w-full text-left font-mono text-sm font-bold">zchat</a>
+		<NewChat />
+		{#if user.current?.sub}
+			<ChatHistory userId={user.current?.sub} />
+		{:else if $isAuthenticated}
+			<div class="flex w-full flex-col gap-y-2">
+				{#each Array(3), i (i)}
+					<div class="skeleton h-8 w-full"></div>
+				{/each}
+			</div>
+		{/if}
+		<span class="divider"></span>
+		<Profile />
+	</ul>
+</nav>
