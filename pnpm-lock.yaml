@@ -44,9 +44,15 @@ importers:
       postgres:
         specifier: ^3.4.5
         version: 3.4.5
+      sst:
+        specifier: 3.9.20
+        version: 3.9.20
       svelte-french-toast:
         specifier: ^1.2.0
         version: 1.2.0(svelte@5.20.5)
+      svelte-kit-sst:
+        specifier: 2.43.5
+        version: 2.43.5
       svelte-markdown:
         specifier: ^0.4.1
         version: 0.4.1(svelte@5.20.5)
@@ -1734,6 +1740,9 @@ packages:
   avvio@9.1.0:
     resolution: {integrity: sha512-fYASnYi600CsH/j9EQov7lECAniYiBFiiAtBNuZYLA2leLe9qOvZzqYHFjtIj6gD2VMoMLP14834LFWvr4IfDw==}
 
+  aws4fetch@1.0.20:
+    resolution: {integrity: sha512-/djoAN709iY65ETD6LKCtyyEI04XIBP5xVvfmNxsEP0uJB5tyaGBztSryRr4HqMStr9R06PisQE7m9zDTXKu6g==}
+
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
     engines: {node: '>= 0.4'}
@@ -2505,8 +2514,14 @@ packages:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
+  jose@4.15.9:
+    resolution: {integrity: sha512-1vUQX+IdDMVPj4k8kOxgUqlcK518yluMuGZwqlr44FS1ppZB/5GWh4rZG89erpOBOJjU/OBsnCVFfapsRz6nEA==}
+
   jose@5.10.0:
     resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
+
+  jose@5.2.3:
+    resolution: {integrity: sha512-KUXdbctm1uHVL8BYhnyHkgp3zDX5KW8ZhAKVFEfUbU2P8Alpzjb+48hHvjOdQIyPshoblhzsuqOwEEAbtHVirA==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -2673,6 +2688,10 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
+  lru-cache@6.0.0:
+    resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
+    engines: {node: '>=10'}
+
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
@@ -2797,11 +2816,19 @@ packages:
   nwsapi@2.2.16:
     resolution: {integrity: sha512-F1I/bimDpj3ncaNDhfyMWuFqmQDBwDB0Fogc2qpL3BWvkQteFD/8BzWuIRl83rq0DXfm8SGt/HFhLXZyljTXcQ==}
 
+  object-hash@2.2.0:
+    resolution: {integrity: sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==}
+    engines: {node: '>= 6'}
+
   obliterator@2.0.5:
     resolution: {integrity: sha512-42CPE9AhahZRsMNslczq0ctAEtqk8Eka26QofnqC346BZdHDySk3LWka23LI7ULIw11NmltpiLagIq8gBozxTw==}
 
   obuf@1.1.2:
     resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
+
+  oidc-token-hash@5.1.0:
+    resolution: {integrity: sha512-y0W+X7Ppo7oZX6eovsRkuzcSM40Bicg2JEJkDJ4irIt1wsYAP5MLSNv+QAogO8xivMffw/9OvV3um1pxXgt1uA==}
+    engines: {node: ^10.13.0 || >=12.0.0}
 
   on-exit-leak-free@2.1.2:
     resolution: {integrity: sha512-0eJJY6hXLGf1udHwfNftBqH+g73EU4B504nZeKpz1sYRKafAghwxEJunB2O7rDZkL4PGfsMVnTXZ2EjibbqcsA==}
@@ -2809,6 +2836,9 @@ packages:
 
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
+
+  openid-client@5.6.4:
+    resolution: {integrity: sha512-T1h3B10BRPKfcObdBklX639tVz+xh34O7GjofqrqiAQdm7eHsQ00ih18x6wuJ/E6FxdtS2u3FmUGPDeEcMwzNA==}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -3268,6 +3298,35 @@ packages:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
     engines: {node: '>= 10.x'}
 
+  sst-darwin-arm64@3.9.20:
+    resolution: {integrity: sha512-R4iU3X3YREbwFM7Zuu2t5u4H+oSMqd6KioYzelZ3vxRAhhUvCevbVkZBixnDmxTO9dJSEWruP3ZFqppwCf3DJA==}
+    cpu: [arm64]
+    os: [darwin]
+
+  sst-darwin-x64@3.9.20:
+    resolution: {integrity: sha512-XU/YMiXx8pJT6m8t4YumGju6JGeA7GvO6tEMCQx5SwHIU6DTO5737+PydOL1scgz+9uL0jiJNzMYvFt7/kb0kw==}
+    cpu: [x64]
+    os: [darwin]
+
+  sst-linux-arm64@3.9.20:
+    resolution: {integrity: sha512-tHsgTJkd1/a0+v3QR63LJQzLs+8MUgBbsD2/6kPbakE9RViWpOe1sTiYa9GfQi3MCkK356Xsagh/czk6pRYr5A==}
+    cpu: [arm64]
+    os: [linux]
+
+  sst-linux-x64@3.9.20:
+    resolution: {integrity: sha512-SfO/ZrDJdHsXn0D812+yx0hy90rBqEUR6jeDtNN93GwO5IkXjx7R+Phvi5E953+l+2Vet3cy6SnbZd6eWHcoEQ==}
+    cpu: [x64]
+    os: [linux]
+
+  sst-linux-x86@3.9.20:
+    resolution: {integrity: sha512-mhxgKz8J6hVk1mJTVsII6dogSxpOgCWu09X+2YtU8cdMVrCEq8AcUv+3QAdjlDAyZSCxlzZUyaVL0RNnapECcw==}
+    cpu: [x86]
+    os: [linux]
+
+  sst@3.9.20:
+    resolution: {integrity: sha512-txmYYBjnPLXZkpw2cs9h4pLqX5V5W+cfE9nU0BVtB7tjHkkCrGIMBY02bIKLv+M2Vk3MOxingtHWimWQ4FgSZQ==}
+    hasBin: true
+
   sswr@2.1.0:
     resolution: {integrity: sha512-Cqc355SYlTAaUt8iDPaC/4DPPXK925PePLMxyBKuWd5kKc5mwsG3nT9+Mq2tyguL5s7b4Jg+IRMpTRsNTAfpSQ==}
     peerDependencies:
@@ -3342,6 +3401,9 @@ packages:
     resolution: {integrity: sha512-5PW+6RFX3xQPbR44CngYAP1Sd9oCq9P2FOox4FZffzJuZI2mHOB7q5gJBVnOiLF5y3moVGZ7u2bYt7+yPAgcEQ==}
     peerDependencies:
       svelte: ^3.57.0 || ^4.0.0
+
+  svelte-kit-sst@2.43.5:
+    resolution: {integrity: sha512-tvWj/YiPCL3scFcHo/RSYZWtXIuX6g6Mib4MXmDw0JrOtZHzqOCG4kWstTbjnWH4i4XyLPPvxrgSkm35muj4uw==}
 
   svelte-markdown@0.4.1:
     resolution: {integrity: sha512-pOlLY6EruKJaWI9my/2bKX8PdTeP5CM0s4VMmwmC2prlOkjAf+AOmTM4wW/l19Y6WZ87YmP8+ZCJCCwBChWjYw==}
@@ -3664,6 +3726,9 @@ packages:
   y18n@5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
+
+  yallist@4.0.0:
+    resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
 
   yallist@5.0.0:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
@@ -5149,6 +5214,8 @@ snapshots:
       '@fastify/error': 4.0.0
       fastq: 1.19.1
 
+  aws4fetch@1.0.20: {}
+
   axobject-query@4.1.0: {}
 
   balanced-match@1.0.2: {}
@@ -5919,7 +5986,11 @@ snapshots:
 
   jiti@2.4.2: {}
 
+  jose@4.15.9: {}
+
   jose@5.10.0: {}
+
+  jose@5.2.3: {}
 
   js-tokens@4.0.0: {}
 
@@ -6069,6 +6140,10 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
+  lru-cache@6.0.0:
+    dependencies:
+      yallist: 4.0.0
+
   lz-string@1.5.0: {}
 
   magic-string@0.30.17:
@@ -6153,15 +6228,26 @@ snapshots:
 
   nwsapi@2.2.16: {}
 
+  object-hash@2.2.0: {}
+
   obliterator@2.0.5: {}
 
   obuf@1.1.2: {}
+
+  oidc-token-hash@5.1.0: {}
 
   on-exit-leak-free@2.1.2: {}
 
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
+
+  openid-client@5.6.4:
+    dependencies:
+      jose: 4.15.9
+      lru-cache: 6.0.0
+      object-hash: 2.2.0
+      oidc-token-hash: 5.1.0
 
   optionator@0.9.4:
     dependencies:
@@ -6568,6 +6654,33 @@ snapshots:
 
   split2@4.2.0: {}
 
+  sst-darwin-arm64@3.9.20:
+    optional: true
+
+  sst-darwin-x64@3.9.20:
+    optional: true
+
+  sst-linux-arm64@3.9.20:
+    optional: true
+
+  sst-linux-x64@3.9.20:
+    optional: true
+
+  sst-linux-x86@3.9.20:
+    optional: true
+
+  sst@3.9.20:
+    dependencies:
+      aws4fetch: 1.0.20
+      jose: 5.2.3
+      openid-client: 5.6.4
+    optionalDependencies:
+      sst-darwin-arm64: 3.9.20
+      sst-darwin-x64: 3.9.20
+      sst-linux-arm64: 3.9.20
+      sst-linux-x64: 3.9.20
+      sst-linux-x86: 3.9.20
+
   sswr@2.1.0(svelte@5.20.5):
     dependencies:
       svelte: 5.20.5
@@ -6644,6 +6757,8 @@ snapshots:
     dependencies:
       svelte: 5.20.5
       svelte-writable-derived: 3.1.1(svelte@5.20.5)
+
+  svelte-kit-sst@2.43.5: {}
 
   svelte-markdown@0.4.1(svelte@5.20.5):
     dependencies:
@@ -6942,6 +7057,8 @@ snapshots:
   xtend@4.0.2: {}
 
   y18n@5.0.8: {}
+
+  yallist@4.0.0: {}
 
   yallist@5.0.0: {}
 
