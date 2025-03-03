@@ -9,51 +9,52 @@ import { user, auth0Client, isAuthenticated } from './store.svelte';
 import { get_z_options, z } from '$lib/z.svelte';
 
 async function initAuth() {
-	const client = await createAuth0Client({
+	await createAuth0Client({
 		domain: PUBLIC_AUTH0_DOMAIN,
 		clientId: PUBLIC_AUTH0_CLIENT_ID,
 		authorizationParams: {
 			redirect_uri: PUBLIC_AUTH0_CALLBACK_URL
 		}
-	});
+	})
+		.then(async (client) => {
+			// update client in store
+			auth0Client.set(client);
+			if (
+				location.search.includes('state=') &&
+				(location.search.includes('code=') || location.search.includes('error='))
+			) {
+				await client.handleRedirectCallback();
+				window.history.replaceState({}, document.title, '/');
+			}
 
-	try {
-		// throws for various reasons
-		console.log('handling redirect callback...');
-		const res = await client.handleRedirectCallback();
-		console.log('redirect callback handled', res);
-	} catch (error) {
-		console.error('Auth0 error handling redirect callback', error);
-	}
+			// check if user is authenticated
+			const isLoggedIn = await client.isAuthenticated();
+			isAuthenticated.set(isLoggedIn);
 
-	// update client in store
-	auth0Client.set(client);
+			const userData = await client.getUser();
 
-	// update isAuthenticated store
-	const isLoggedIn = await client.isAuthenticated();
-	isAuthenticated.set(isLoggedIn);
+			if (userData?.sub) {
+				// update user store
+				user.current = userData;
 
-	// get user data
-	const userData = await client.getUser();
+				// upsert user in db
+				z.current.mutate.users.upsert({
+					id: userData?.sub,
+					email: userData?.email,
+					name: userData?.name,
+					picture: userData?.picture,
+					emailVerified: userData?.email_verified ?? false
+				});
 
-	if (userData?.sub) {
-		// update user store
-		user.current = userData;
-
-		// upsert user in db
-		z.current.mutate.users.upsert({
-			id: userData?.sub,
-			email: userData?.email,
-			name: userData?.name,
-			picture: userData?.picture,
-			emailVerified: userData?.email_verified ?? false
+				const claims = await client.getIdTokenClaims();
+				const z_options = get_z_options(claims?.sub, claims?.__raw);
+				z.build(z_options);
+				console.log('z rebuilt');
+			}
+		})
+		.catch((error) => {
+			console.error('Auth0 error creating client', error);
 		});
-
-		const claims = await client.getIdTokenClaims();
-		const z_options = get_z_options(claims?.sub, claims?.__raw);
-		z.build(z_options);
-		console.log('z rebuilt');
-	}
 }
 
 async function login() {
