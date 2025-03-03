@@ -14,25 +14,6 @@
 	});
 </script>
 
-<svelte:head>
-	<title>zchat</title>
-	<meta name="description" content="An AI chat app built with Zero by Rocicorp." />
-	<meta property="og:title" content="zchat" />
-	<meta property="og:description" content="An AI chat app built with Zero by Rocicorp." />
-	<meta property="og:image:type" content="image/jpeg" />
-	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="630" /><meta
-		property="og:image"
-		content="https://zero.rocicorp.dev/opengraph-image.jpg?942633a931cbd1df"
-	/>
-	<meta name="twitter:card" content="summary_large_image" /><meta
-		name="twitter:title"
-		content="Zero Docs"
-	/>
-	<meta name="twitter:description" content="An AI chat app built with Zero by Rocicorp." />
-	<meta name="twitter:image" content="https://zero.rocicorp.dev/opengraph-image.jpg" />
-</svelte:head>
-
 <div class="drawer lg:drawer-open">
 	{#if data.mode != 'ro'}
 		<input id="app-drawer" type="checkbox" class="drawer-toggle" />
