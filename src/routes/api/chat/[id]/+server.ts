@@ -15,9 +15,7 @@ export const POST = (async ({ request, params }) => {
 
 	const { messages } = await request.json();
 
-	// update the database to show the users message
-	// TODO: We may want to perform this update from the client
-	await db.update(chats).set({ messages: messages, updatedAt: new Date() }).where(eq(chats.id, id));
+	console.log(messages);
 
 	const newMessage = {
 		role: 'assistant',

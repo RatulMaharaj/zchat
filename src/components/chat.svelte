@@ -14,7 +14,7 @@
 	let selectedChat = $derived(chats.current.find((chat) => chat.id === chatId));
 </script>
 
-<div id="chat" class="h-full flex-grow overflow-y-scroll px-10">
+<div id="chat" class="h-full flex-grow overflow-y-scroll px-10 pb-32">
 	{#if selectedChat?.messages && selectedChat?.messages.length > 0}
 		<ul>
 			{#each selectedChat?.messages as message, index (index)}

@@ -5,13 +5,12 @@
 	export let messages: UIMessage[];
 
 	import Icon from './icon.svelte';
+	import { z } from '$lib/z.svelte';
 
 	let input = '';
 
-	async function handleSubmit(e: Event) {
+	async function handleSubmit(e: Event, messageHistory: UIMessage[]) {
 		e.preventDefault();
-		if (!input) return;
-
 		await fetch(`/api/chat/${chatId}`, {
 			method: 'POST',
 			headers: {
@@ -19,24 +18,32 @@
 			},
 			body: JSON.stringify({
 				chatId,
-				messages: [
-					...messages,
-					{
-						role: 'user',
-						content: input
-					}
-				]
+				messages: messageHistory
 			})
 		});
-
-		input = '';
 	}
 </script>
 
 <form
 	class="bg-base-100 absolute right-0 bottom-0 left-0 min-h-20 w-full px-10 pb-4"
-	on:submit={(e) => {
-		handleSubmit(e);
+	on:submit={async (e) => {
+		// first update the database
+		const messageHistory = JSON.stringify([
+			...messages,
+			{
+				role: 'user',
+				content: input
+			}
+		]);
+
+		await z.current.mutate.chats.update({
+			id: chatId,
+			messages: JSON.parse(messageHistory)
+		});
+		// clear the input
+		input = '';
+		// submit the form to trigger the completion on the server
+		await handleSubmit(e, JSON.parse(messageHistory));
 	}}
 >
 	<div
