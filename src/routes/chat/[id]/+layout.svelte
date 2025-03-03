@@ -7,6 +7,7 @@
 	import { goto } from '$app/navigation';
 	import { Query } from 'zero-svelte';
 	import Logo from '$components/logo.svelte';
+	import { isAuthenticated, user } from '$lib/store.svelte.js';
 
 	let { data, children } = $props();
 
@@ -23,7 +24,7 @@
 			<Logo />
 			<p class="text-xs whitespace-nowrap opacity-60">Read-only</p>
 		</div>
-	{:else}
+	{:else if $isAuthenticated && selectedChat?.userId === user.current?.sub}
 		<div class="flex flex-row pr-4">
 			<button
 				class="btn btn-xs"
@@ -61,6 +62,6 @@
 	{/if}
 </Header>
 {@render children()}
-{#if data.mode !== 'ro'}
+{#if data.mode === 'rw' && $isAuthenticated}
 	<Prompt chatId={data?.id} messages={selectedChat?.messages ?? []} />
 {/if}

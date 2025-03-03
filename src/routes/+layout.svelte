@@ -26,7 +26,7 @@
 			{@render children()}
 		</section>
 	</main>
-	{#if data.mode != 'ro'}
+	{#if data.mode !== 'ro'}
 		<Sidebar />
 	{/if}
 	<Toaster />

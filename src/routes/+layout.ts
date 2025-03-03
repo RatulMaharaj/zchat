@@ -7,6 +7,6 @@ export const load: LayoutLoad = ({ url }) => {
 	const mode: 'rw' | 'ro' = searchParams.get('mode') === 'ro' ? 'ro' : 'rw';
 
 	return {
-		mode,
+		mode
 	};
 };
