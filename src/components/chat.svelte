@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { z } from '$lib/z.svelte';
-	import Prompt from './prompt.svelte';
+
 	import SvelteMarkdown from 'svelte-markdown';
 	import { Query } from 'zero-svelte';
 
@@ -14,7 +14,7 @@
 	let selectedChat = $derived(chats.current.find((chat) => chat.id === chatId));
 </script>
 
-<div id="chat" class="h-full flex-grow overflow-y-scroll px-10 pb-32">
+<div id="chat" class="h-full flex-grow overflow-y-scroll px-10 pt-14 pb-32">
 	{#if selectedChat?.messages && selectedChat?.messages.length > 0}
 		<ul>
 			{#each selectedChat?.messages as message, index (index)}
@@ -33,4 +33,3 @@
 		</ul>
 	{/if}
 </div>
-<Prompt {chatId} messages={selectedChat?.messages ?? []} />

@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { children } = $props();
+	let { children, data } = $props();
 
 	import { onMount } from 'svelte';
 	import { initAuth, isAuthenticated } from '$lib/auth.svelte';
@@ -19,7 +19,9 @@
 </svelte:head>
 
 <div class="drawer lg:drawer-open">
-	<input id="app-drawer" type="checkbox" class="drawer-toggle" />
+	{#if data.mode != 'ro'}
+		<input id="app-drawer" type="checkbox" class="drawer-toggle" />
+	{/if}
 	<main class="drawer-content flex h-screen max-h-screen flex-col items-center justify-start">
 		<section
 			id="content"
@@ -28,6 +30,8 @@
 			{@render children()}
 		</section>
 	</main>
-	<Sidebar />
+	{#if data.mode != 'ro'}
+		<Sidebar />
+	{/if}
 	<Toaster />
 </div>

@@ -2,9 +2,12 @@
 	import { isAuthenticated, login } from '$lib/auth.svelte';
 	import Header from '$components/header.svelte';
 	import { createNewChat } from '$lib/helpers.svelte';
+	import Icon from '$components/icon.svelte';
 </script>
 
-<Header />
+<Header >
+	<label for="app-drawer" class="drawer-btn lg:hidden"><Icon name="menu" /></label>
+</Header>
 
 {#if $isAuthenticated}
 	<div class="flex h-full w-full items-center justify-center text-center text-sm">

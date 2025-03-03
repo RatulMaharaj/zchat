@@ -49,11 +49,13 @@
 	<div
 		class="textarea bg-base-100 flex h-20 w-full flex-row focus-within:outline-none focus:outline-none"
 	>
+		<!-- svelte-ignore a11y_autofocus -->
 		<input
 			type="text"
 			class="bg-base-100 h-full w-full border-none px-2 py-1 outline-none focus:border-none focus:outline-none"
 			bind:value={input}
 			placeholder="Message zchat"
+			autofocus
 		/>
 		<button type="submit" class="btn btn-secondary btn-circle my-auto mr-4 h-8 w-8">
 			<Icon name="send" size="size-4" />
