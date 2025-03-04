@@ -18,7 +18,7 @@
 	{#if data.mode != 'ro'}
 		<input id="app-drawer" type="checkbox" class="drawer-toggle" />
 	{/if}
-	<main class="drawer-content flex h-screen max-h-screen flex-col items-center justify-start">
+	<main class="drawer-content flex h-dvh max-h-dvh flex-col items-center justify-start">
 		<section
 			id="content"
 			class="relative h-full w-full flex-col items-start justify-start overflow-y-scroll"
