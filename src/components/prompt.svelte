@@ -47,7 +47,7 @@
 	}}
 >
 	<div
-		class="textarea bg-base-100 flex h-20 w-full flex-row focus-within:outline-none focus:outline-none"
+		class="textarea bg-base-100 flex h-20 w-full flex-row text-base focus-within:outline-none focus:outline-none"
 	>
 		<!-- svelte-ignore a11y_autofocus -->
 		<input
