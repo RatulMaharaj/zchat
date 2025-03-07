@@ -3,7 +3,14 @@
 	import { z } from '$lib/z.svelte';
 	let { userId, filter = $bindable() }: { userId: string; filter: string } = $props();
 
-	let chats = new Query(z.current.query.chats.where('userId', userId).orderBy('createdAt', 'desc'));
+	let chats = $derived(
+		new Query(
+			z.current.query.chats
+				.where('userId', userId)
+				.where('title', 'ILIKE', `%${filter}%`)
+				.orderBy('createdAt', 'desc')
+		)
+	);
 </script>
 
 <input
@@ -16,10 +23,7 @@
 	<strong class="text-base-content my-2 w-full pl-2 text-left text-sm">Chats</strong>
 {/if}
 
-{#each chats.current.filter((chat) => {
-	// TODO: I think this is supposed to be implemented using where + LIKE
-	return chat.title?.toLowerCase().includes(filter.toLowerCase());
-}) as chat (chat.id)}
+{#each chats.current as chat (chat.id)}
 	<li class="w-full">
 		<a href="/chat/{chat.id}">
 			<p title={chat?.title} class="w-full overflow-hidden text-ellipsis whitespace-nowrap">

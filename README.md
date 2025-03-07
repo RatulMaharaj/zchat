@@ -11,11 +11,9 @@ See https://x.com/aboodman/status/1894771044504006912
 - Integration with AI is at server-level.
 - Uses zero's sync for streaming to UI.
 - Can be deployed w/ sst (or coolify + vercel) 
-- Filter chats
+- Chats are filtered using sql ILIKE filter
 - Supports ✨sharing✨ a chat in r/o mode
 
-## Still to do
-- Move chat filter to sql LIKE filter
 
 
 ## Development setup
