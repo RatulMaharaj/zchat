@@ -1,4 +1,5 @@
-// Format the zero-cache logs for better readability
+// format the zero-cache logs for better readability
+// set ZERO_LOG_FORMAT="json"
 // usage: zero-cache-dev -p src/db/schema.ts 2>&1 | node format_logs.mjs
 
 import readline from 'readline';
@@ -65,5 +66,7 @@ function formatLogEntry(logEntry) {
 }
 
 rl.on('line', (line) => {
-	console.log(formatLogEntry(line.trim()));
+	if (line.trim() !== '') {
+		console.log(formatLogEntry(line.trim()));
+	}
 });
