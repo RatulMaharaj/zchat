@@ -63,8 +63,8 @@ ZERO_LOG_FORMAT="json"
 
 In a terminal start the dev sync server:
 ```sh
-pnpm run dev:zero-cache
-# or run `pnpm run dev:cache` for pretty logging with python + rich
+pnpm run dev:cache
+# or run `pnpm run dev:zero-cache` for unformatted logs
 ```
 
 In another terminal, start the frontend:
